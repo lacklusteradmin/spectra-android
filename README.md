@@ -6,12 +6,12 @@ setup in `kotlin/`, and two scripts that built core for Android with
 `cargo-ndk` and generated Kotlin bindings.
 
 None of it builds today. The scripts compile an `ffi/` crate that core no
-longer has: core now builds as the library itself, as spectra-apple's
-`scripts/build-apple.sh` shows. Android work starts by taking
-[spectra](https://github.com/lacklusteradmin/spectra) as the `spectra/` git
-submodule, building `spectra/core` as a `cdylib` for each Android ABI, and
-generating the bindings with `spectra/tools/uniffi-bindgen` and
-`--language kotlin`.
+longer has: core now builds as the library itself, as
+[spectra](https://github.com/lacklusteradmin/spectra)'s
+`scripts/build-apple-package.sh` does for Apple. Android work starts by
+building core from a spectra checkout beside this repository (`../Spectra`, as
+spectra-apple does) as a `cdylib` for each Android ABI, and generating the
+bindings with its `tools/uniffi-bindgen` and `--language kotlin`.
 
 ## License
 
