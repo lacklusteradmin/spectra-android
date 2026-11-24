@@ -56,7 +56,7 @@ import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
 import dev.spectra.models.entry
 import dev.spectra.models.explorerLink
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.localizedFailureReason
 import dev.spectra.models.localizedTitle
 import dev.spectra.models.nativeChainBadge
@@ -242,14 +242,14 @@ private fun TransferTerms(artifact: SendArtifact, terms: AssetTransferTerms) {
             if (hasFee) SpectraDivider()
             SpectraValueRow(
                 label = AppLocalization.string("Sent With It"),
-                value = AmountPresentation.exactAmount(carried, artifact.chainId.gasTokenSymbol),
+                value = AmountPresentation.exactAmount(carried, artifact.chainId.coinSymbol),
             )
         }
         terms.recipientRegistration?.let { registration ->
             if (hasFee || terms.carriedNative != null) SpectraDivider()
             SpectraValueRow(
                 label = AppLocalization.string("Recipient Registration"),
-                value = AmountPresentation.exactAmount(registration, artifact.chainId.gasTokenSymbol),
+                value = AmountPresentation.exactAmount(registration, artifact.chainId.coinSymbol),
             )
         }
         terms.hookProgram?.let { program ->

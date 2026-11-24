@@ -37,7 +37,7 @@ import dev.spectra.models.AppLocalization
 import dev.spectra.models.chainName
 import dev.spectra.models.displayName
 import dev.spectra.models.formatNumber
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.feeSymbol
 import dev.spectra.models.hasSendPreview
 import dev.spectra.models.isEvm
 import dev.spectra.models.isNativeCoin
@@ -240,8 +240,8 @@ private fun SimpleFeeContent(app: AppState, selectedCoin: AssetHolding, chain: C
                         AppLocalization.format(
                             "Token transfers on %@ pay network fees in %@. Keep a %@ balance for fees.",
                             chainName,
-                            chain.gasTokenSymbol,
-                            chain.gasTokenSymbol,
+                            chain.feeSymbol,
+                            chain.feeSymbol,
                         ),
                     )
                 }

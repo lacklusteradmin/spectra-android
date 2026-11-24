@@ -19,7 +19,7 @@ import dev.spectra.components.secondaryText
 import dev.spectra.components.spectraRowPadding
 import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import uniffi.spectra_core.Chain
 import uniffi.spectra_core.MoneroPaymentProof
 
@@ -44,7 +44,7 @@ internal fun PaymentProofScreen(proof: MoneroPaymentProof, chain: Chain) {
             row {
                 SpectraValueRow(
                     label = AppLocalization.string("Proves"),
-                    value = AmountPresentation.exactAmount(proof.amount, chain.gasTokenSymbol),
+                    value = AmountPresentation.exactAmount(proof.amount, chain.coinSymbol),
                     modifier = Modifier.spectraRowPadding(),
                 )
             }

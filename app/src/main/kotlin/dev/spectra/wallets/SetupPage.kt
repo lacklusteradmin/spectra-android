@@ -171,7 +171,7 @@ private fun SetupHeader(draft: WalletImportDraft, setupPage: WalletSetupPage, pa
         val entry = chain?.entry
         if (!draft.isEditingWallet && chain != null && entry != null) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(SpectraLayout.Space.xs)) {
-                CoinBadge(entry.artworkName, entry.gasTokenSymbol, entry.color.color, size = 20.dp)
+                CoinBadge(entry.artworkName, entry.coinSymbol, entry.color.color, size = 20.dp)
                 Text(
                     chain.displayName,
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),

@@ -52,7 +52,7 @@ import dev.spectra.components.spectraRowPadding
 import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
 import dev.spectra.models.CoreReferenceTables
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.isNativeCoin
 import dev.spectra.models.isWatchOnly
 import dev.spectra.models.requiresPassword
@@ -269,7 +269,7 @@ private fun Preparation(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = enabled,
                 label = { Text(AppLocalization.string(if (rules.amountRequired) "Amount" else "staking.optional_amount")) },
-                suffix = { Text(staking.chain.gasTokenSymbol, color = secondaryText) },
+                suffix = { Text(staking.chain.coinSymbol, color = secondaryText) },
                 singleLine = true,
                 textStyle = MaterialTheme.typography.bodyLarge.copy(fontFeatureSettings = "tnum"),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),

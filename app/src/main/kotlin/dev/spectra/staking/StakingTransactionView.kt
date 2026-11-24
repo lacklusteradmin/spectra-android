@@ -37,7 +37,7 @@ import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
 import dev.spectra.models.CoreReferenceTables
 import dev.spectra.models.explorerLink
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.localizedFailureReason
 import dev.spectra.models.requiresPassword
 import dev.spectra.send.BroadcastNodePicker
@@ -192,7 +192,7 @@ private fun ReviewCard(staking: StakingState, artifact: SendArtifact) {
                     review.refundableDeposit?.let {
                         SpectraValueRow(
                             label = AppLocalization.string("staking.refundable_deposit"),
-                            value = AmountPresentation.exactAmount(it, artifact.chainId.gasTokenSymbol),
+                            value = AmountPresentation.exactAmount(it, artifact.chainId.coinSymbol),
                         )
                     }
                     if (review.rewardPayoutIsDelayed) SpectraHintText(AppLocalization.string("staking.delayed_reward_payout"))

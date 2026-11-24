@@ -39,7 +39,7 @@ import dev.spectra.components.spectraRowPadding
 import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
 import dev.spectra.models.entry
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.isWatchOnly
 import dev.spectra.wallets.title
 import uniffi.spectra_core.WalletAction
@@ -80,7 +80,7 @@ internal fun WalletTrustLinesView(wallet: WalletState) {
                     footer = AppLocalization.format(
                         "Each trust line locks %@ %@ of reserve while it exists.",
                         read.reservePerLine,
-                        wallet.chainId.gasTokenSymbol,
+                        wallet.chainId.coinSymbol,
                     ),
                 ) { line ->
                     TrustLineRow(wallet, line) { navigator.push(TrustLineChangeRoute(wallet.id, line.asset, remove = true)) }

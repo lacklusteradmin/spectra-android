@@ -78,7 +78,7 @@ import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
 import dev.spectra.models.chainName
 import dev.spectra.models.color
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.isNativeCoin
 import dev.spectra.models.isWatchOnly
 import dev.spectra.models.nativeChainBadge
@@ -456,7 +456,7 @@ private fun RequestAmountCard(
                         onValueChange = onAmountChange,
                         modifier = Modifier.fillMaxWidth(),
                         label = { Text(AppLocalization.string("Amount")) },
-                        suffix = { Text(chain.gasTokenSymbol, color = secondaryText) },
+                        suffix = { Text(chain.coinSymbol, color = secondaryText) },
                         singleLine = true,
                         textStyle = MaterialTheme.typography.bodyLarge.copy(fontFeatureSettings = "tnum"),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Done),

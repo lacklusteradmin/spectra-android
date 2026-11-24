@@ -91,6 +91,8 @@ val DerivationProfile.title: String
             DerivationProfile.NESTED_SEG_WIT -> "Nested SegWit"
             DerivationProfile.NATIVE_SEG_WIT -> "Native SegWit"
             DerivationProfile.TAPROOT -> "Taproot"
+            DerivationProfile.ECDSA -> "ECDSA"
+            DerivationProfile.EVM -> "EVM"
         },
     )
 

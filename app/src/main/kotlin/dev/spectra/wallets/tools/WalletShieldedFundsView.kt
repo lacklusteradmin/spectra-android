@@ -36,7 +36,7 @@ import dev.spectra.components.SpectraValueRow
 import dev.spectra.components.WalletPasswordField
 import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.requiresPassword
 import dev.spectra.models.userErrorMessage
 import dev.spectra.wallets.PrivateFundsFlow
@@ -136,7 +136,7 @@ internal fun WalletShieldedFundsView(wallet: WalletState) {
                         if (current.shieldable != "0") {
                             SpectraValueRow(
                                 label = AppLocalization.string("Transparent, to Shield"),
-                                value = AmountPresentation.exactAmount(current.shieldable, wallet.chainId.gasTokenSymbol),
+                                value = AmountPresentation.exactAmount(current.shieldable, wallet.chainId.coinSymbol),
                                 isHidden = app.preferences.hideBalances,
                             )
                             FilledTonalButton(

@@ -56,7 +56,7 @@ import dev.spectra.models.AppLocalization
 import dev.spectra.models.DateStyle
 import dev.spectra.models.TimeStyle
 import dev.spectra.models.formatUnixDate
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import uniffi.spectra_core.StakingPosition
 import uniffi.spectra_core.StakingValidator
 import uniffi.spectra_core.formatNativeAmount
@@ -111,7 +111,7 @@ internal fun StakingPositionsView(
 @Composable
 private fun PositionRow(staking: StakingState, position: StakingPosition, canSign: Boolean, hidesBalances: Boolean) {
     fun amount(units: String): String =
-        "${formatNativeAmount(staking.chain, units)?.let { AmountPresentation.localizedDecimal(it) } ?: "—"} ${staking.chain.gasTokenSymbol}"
+        "${formatNativeAmount(staking.chain, units)?.let { AmountPresentation.localizedDecimal(it) } ?: "—"} ${staking.chain.coinSymbol}"
     fun time(unix: ULong): String = formatUnixDate(unix.toDouble(), DateStyle.ABBREVIATED, TimeStyle.SHORTENED)
 
     Column(verticalArrangement = Arrangement.spacedBy(SpectraLayout.Space.s)) {

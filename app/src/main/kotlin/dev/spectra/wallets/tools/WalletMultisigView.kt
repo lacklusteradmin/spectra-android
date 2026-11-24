@@ -65,7 +65,7 @@ import dev.spectra.models.AppLocalization
 import dev.spectra.models.DateStyle
 import dev.spectra.models.TimeStyle
 import dev.spectra.models.formatUnixDate
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.localizedText
 import dev.spectra.models.requiresPassword
 import dev.spectra.models.userErrorMessage
@@ -168,7 +168,7 @@ internal fun WalletMultisigView(wallet: WalletState) {
                     value = amount,
                     onValueChange = { amount = it },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text(AppLocalization.format("Amount (%@)", wallet.chainId.gasTokenSymbol)) },
+                    label = { Text(AppLocalization.format("Amount (%@)", wallet.chainId.coinSymbol)) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 )
@@ -348,7 +348,7 @@ internal fun MultisigSessionView(account: MultisigAccount, initial: MultisigSess
 
     fun amount(smallestUnit: String): String =
         "${formatNativeAmount(session.chain, smallestUnit)?.let { AmountPresentation.localizedDecimal(it) } ?: smallestUnit} " +
-            session.chain.gasTokenSymbol
+            session.chain.coinSymbol
 
     fun work(body: suspend () -> Unit) {
         scope.launch {

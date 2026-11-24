@@ -73,11 +73,11 @@ val SendArtifact.reviewWarningMessages: List<String>
             )
             is ReviewWarning.CarriesNative -> AppLocalization.format(
                 "The token goes with %@ %@, the least its output can hold; the recipient keeps it.",
-                AmountPresentation.localizedDecimal(warning.amount), chainId.gasTokenSymbol,
+                AmountPresentation.localizedDecimal(warning.amount), chainId.coinSymbol,
             )
             is ReviewWarning.RegistersRecipient -> AppLocalization.format(
                 "The token has not registered the recipient. This send registers it first for %@ %@, which the token keeps for the recipient.",
-                AmountPresentation.localizedDecimal(warning.deposit), chainId.gasTokenSymbol,
+                AmountPresentation.localizedDecimal(warning.deposit), chainId.coinSymbol,
             )
             is ReviewWarning.TransferHook -> AppLocalization.format(
                 "This token runs program %@ on every transfer, and it can refuse this one.", warning.program,

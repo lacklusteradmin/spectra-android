@@ -72,7 +72,10 @@ val Chain.mainnetCounterpart: Chain get() = entry?.mainnet ?: this
 val Chain.faucetUrl: String? get() = entry?.faucetUrl
 
 /** The network's native token symbol, derived by core. */
-val Chain.gasTokenSymbol: String get() = entry?.gasTokenSymbol ?: ""
+val Chain.coinSymbol: String get() = entry?.coinSymbol ?: ""
+
+/** The symbol of the asset the network's fees are paid in: the coin's own, or VTHO on VeChainThor. */
+val Chain.feeSymbol: String get() = entry?.feeSymbol ?: ""
 
 /**
  * The chain's native asset decimals, from the catalog. `null` only if the

@@ -583,7 +583,7 @@ data class ChainSelectionDescriptor(
             return ChainSelectionDescriptor(
                 chain = chain,
                 title = AppLocalization.string(entry.name),
-                symbol = entry.gasTokenSymbol,
+                symbol = entry.coinSymbol,
                 artworkName = entry.artworkName,
                 color = entry.color.color,
                 tags = entry.tags,

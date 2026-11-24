@@ -30,7 +30,7 @@ import dev.spectra.components.SpectraValueRow
 import dev.spectra.components.WalletPasswordField
 import dev.spectra.models.AmountPresentation
 import dev.spectra.models.AppLocalization
-import dev.spectra.models.gasTokenSymbol
+import dev.spectra.models.coinSymbol
 import dev.spectra.models.requiresPassword
 import dev.spectra.models.userErrorMessage
 import dev.spectra.wallets.PrivateFundsFlow
@@ -273,7 +273,7 @@ internal fun PrivateBalanceSection(
     actions: @Composable () -> Unit,
 ) {
     val hidesBalances = LocalAppState.current.preferences.hideBalances
-    val symbol = wallet.chainId.gasTokenSymbol
+    val symbol = wallet.chainId.coinSymbol
     ToolSection(
         footer = if (complete) null else AppLocalization.string("The scan is not finished; funds it has not reached are not counted."),
     ) {

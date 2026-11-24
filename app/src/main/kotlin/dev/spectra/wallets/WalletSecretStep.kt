@@ -256,8 +256,8 @@ private fun FindUsedAccountsButton(draft: WalletImportDraft, onClick: () -> Unit
 
 /**
  * A named account the key controls, on a network that has them. The import
- * confirms on the network that the key is one of its full-access keys before
- * the wallet is added.
+ * confirms on the network that the key controls it before the wallet is
+ * added.
  */
 @Composable
 private fun NamedAccountCard(draft: WalletImportDraft) {
@@ -274,7 +274,7 @@ private fun NamedAccountCard(draft: WalletImportDraft) {
         )
         SpectraHintText(
             AppLocalization.string(
-                "If this key controls a named account, enter it. Adding the wallet checks on the network that the key is one of its full-access keys.",
+                "If this key controls a named account, enter it. Adding the wallet checks on the network that the key controls that account.",
             ),
         )
     }

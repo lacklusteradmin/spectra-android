@@ -84,20 +84,24 @@ class AmountPresentation(
 
     // ── Network fees ────────────────────────────────────────────────────
 
-    /** An amount of the chain's gas token — a fee, a deposit, rent — exactly as core stated it. */
-    fun formattedNativeAmount(amount: String, chain: Chain): String = exactAmount(amount, chain.gasTokenSymbol)
+    /** An amount of the chain's own coin — a deposit, rent, a reserve — exactly as core stated it. */
+    fun formattedNativeAmount(amount: String, chain: Chain): String = exactAmount(amount, chain.coinSymbol)
+
+    /** A network fee exactly as core stated it, in the asset fees are paid in. */
+    fun formattedNetworkFee(fee: String, chain: Chain): String = exactAmount(fee, chain.feeSymbol)
 
     /**
      * A fee as a compact row shows it: core's significant-digit policy at the
-     * gas token's precision, with its display-currency value when core had one.
+     * fee asset's precision (a fee token has the coin's decimals), with its
+     * display-currency value when core had one.
      */
     fun compactNetworkFee(fee: String, value: Double?, chain: Chain): String {
         val decimals = chain.nativeDecimals
         val text = decimals?.let { formatAssetAmount(fee, it) }
         val native = if (text != null) {
-            (if (text.belowThreshold) "<" else "") + localizedDecimal(text.value) + " " + chain.gasTokenSymbol
+            (if (text.belowThreshold) "<" else "") + localizedDecimal(text.value) + " " + chain.feeSymbol
         } else {
-            formattedNativeAmount(fee, chain)
+            formattedNetworkFee(fee, chain)
         }
         val fiat = formattedFiatIfAvailable(value) ?: return native
         return "$native (~$fiat)"
@@ -128,10 +132,10 @@ class AmountPresentation(
         transaction.receiptEffectiveGasPriceGwei?.let { formattedGasPrice(it) }
 
     fun receiptNetworkFeeText(transaction: TransactionRecord): String? =
-        transaction.receiptNetworkFee?.let { formattedNativeAmount(it, transaction.chainId) }
+        transaction.receiptNetworkFee?.let { formattedNetworkFee(it, transaction.chainId) }
 
     fun confirmedNetworkFeeText(transaction: TransactionRecord): String? =
-        transaction.confirmedNetworkFee?.let { formattedNativeAmount(it, transaction.chainId) }
+        transaction.confirmedNetworkFee?.let { formattedNetworkFee(it, transaction.chainId) }
 
     fun storedFeeRateText(transaction: TransactionRecord): String? =
         transaction.feeRateDescription?.trim()?.takeIf { it.isNotEmpty() }
