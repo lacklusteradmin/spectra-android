@@ -8,8 +8,11 @@ page: its `docs/ARCHITECTURE.md` describes the same design in Swift.
 
 ## Layout
 
-`app/src/main/kotlin/dev/spectra/` holds every source, by feature, as
-spectra-apple's `app/` does:
+`app/src/main/kotlin/` holds every source, by feature, as spectra-apple's
+`app/` does. Every package is under `dev.spectra`, and the directories leave
+that common root out, as Kotlin's coding conventions recommend:
+`dev.spectra.send` is `send/`, and the unit and instrumented tests' source sets
+do the same.
 
 | Package | Holds |
 | --- | --- |

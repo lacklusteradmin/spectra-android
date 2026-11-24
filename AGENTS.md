@@ -113,11 +113,12 @@ pre-existing without evidence.
 
 ## Kotlin conventions
 
-- `app/src/main/kotlin/dev/spectra/` holds every source, by feature: `app`
-  (`AppState`, its adopters, the bridge, the secret store, navigation and
-  device services), `models` (display helpers on core's records and the
-  catalogs read from core), `components` (the theme and shared composables),
-  then one package per feature, its state beside its screens.
+- `app/src/main/kotlin/` holds every source, by feature, one directory per
+  package with the common root `dev.spectra` left out: `app` (`AppState`,
+  its adopters, the bridge, the secret store, navigation and device
+  services), `models` (display helpers on core's records and the catalogs
+  read from core), `components` (the theme and shared composables), then one
+  package per feature, its state beside its screens.
 - State a screen reads is Compose snapshot state. `AppState` and the domain
   objects are read and written on the main thread; a blocking core call runs
   in `withContext(Dispatchers.IO)`.

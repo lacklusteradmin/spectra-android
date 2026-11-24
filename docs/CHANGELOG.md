@@ -1,5 +1,15 @@
 # Changelog
 
+## Beta Commit 258
+
+- **Source directories leave out the root package** (`app/src/main/kotlin/`,
+  `app/src/test/kotlin/`, `app/src/androidTest/kotlin/`): `dev.spectra.send`
+  is `send/`, as Kotlin's coding conventions recommend; packages are unchanged
+  (before: `dev/spectra/send/`).
+- Docs: `AGENTS.md` (Kotlin conventions), `ARCHITECTURE.md` (Layout).
+- Total: 160 .kt files moved, no line changed; data and config files: none;
+  tests passing in `make test` 3 → 3 (`make test-device` not run).
+
 ## Beta Commit 257
 
 - **A network fee is labelled with the asset it is paid in**
