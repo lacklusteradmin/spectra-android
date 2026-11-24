@@ -1,0 +1,7 @@
+<resources>
+    <!-- The window behind the first frame. Compose draws everything after
+         it; the colours are the theme's background in light and dark. -->
+    <style name="Theme.Spectra" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/spectra_window</item>
+    </style>
+</resources>

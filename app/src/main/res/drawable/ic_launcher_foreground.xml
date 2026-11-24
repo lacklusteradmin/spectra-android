@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The app icon's five bars (spectra-apple's icons/appicon/), filling the
+     same share of the visible icon as they do of the 1024-point source. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="#FF8000" android:pathData="M33,33h12.95v42h-12.95z" />
+    <path android:fillColor="#FF0066" android:pathData="M50.92,33h8.05v42h-8.05z" />
+    <path android:fillColor="#8000FF" android:pathData="M62.05,33h4.97v42h-4.97z" />
+    <path android:fillColor="#0066FF" android:pathData="M68.84,33h3.08v42h-3.08z" />
+    <path android:fillColor="#00E0FF" android:pathData="M73.11,33h1.89v42h-1.89z" />
+</vector>
