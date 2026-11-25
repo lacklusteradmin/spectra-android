@@ -1,12 +1,23 @@
 # Changelog
 
+## Beta Commit 261
+
+- Docs: `AGENTS.md` "CHANGELOG" (the rules written out here instead of
+  pointing to spectra's; `Total:` names dependencies and says which test
+  target was not run); `CHANGELOG.md` (every section checked against its
+  commit: `+X −Y lines` in `Total:` counts the .kt files' lines, Beta Commits
+  257 to 259 state their dependencies and the test targets not run, packed
+  entries split, an unchanged `README.md` claim removed from Beta Commit
+  254).
+- Total: No code changed.
+
 ## Beta Commit 259
 
 - **Thirty-seven icons** (`app/src/main/assets/crypto/`), synced from core's
   library: 37 of the 44 tokens core's catalog adds (the other seven name no
   artwork).
 - Total: no .kt files changed; data files: `app/src/main/assets/crypto/` (37
-  new); tests not run.
+  new); dependencies unchanged; `make test` and `make test-device` not run.
 
 ## Beta Commit 258
 
@@ -16,7 +27,8 @@
   (before: `dev/spectra/send/`).
 - Docs: `AGENTS.md` (Kotlin conventions), `ARCHITECTURE.md` (Layout).
 - Total: 160 .kt files moved, no line changed; data and config files: none;
-  tests passing in `make test` 3 → 3 (`make test-device` not run).
+  dependencies unchanged; tests passing in `make test` 3 → 3
+  (`make test-device` not run).
 
 ## Beta Commit 257
 
@@ -44,7 +56,8 @@
   point" to Beta Commit 256, matched to their commits).
 - Total: 19 .kt files changed, +53 −40 lines; data files:
   `app/src/main/assets/strings/` (3), `app/src/main/assets/crypto/` (25 new);
-  tests passing in `make test` 3 → 3 and `make test-device` 7 → 7.
+  dependencies unchanged; tests passing in `make test` 3 → 3 and
+  `make test-device` 7 → 7.
 
 ## Beta Commit 256
 
@@ -78,42 +91,51 @@
     without a screen lock is refused, and nothing in the app is backed up or
     transferred (`allowBackup="false"`, data extraction rules).
 - **Device authentication is `BiometricPrompt`** with strong biometrics or the
-  screen lock (`app/DeviceServices.kt`): always for secret material, and for
-  unlocking, sends, deleting and resetting when the settings ask; the lock,
-  and a store this build cannot read with its discard, cover the app in a
-  full-screen dialog, and the recents screen never shows the app's content.
+  screen lock (`app/DeviceServices.kt`)
+  - It is asked for secret material always, and for unlocking, sends,
+    deleting and resetting when the settings ask.
+  - The lock, and a store this build cannot read with its discard, cover the
+    app in a full-screen dialog.
+  - The recents screen never shows the app's content.
 - **A recovery phrase or private key on screen keeps the window out of
   screenshots, recordings and recents** (`components/SpectraScaffold.kt`
-  `SecureWindow`, `FLAG_SECURE`), and a copied secret is marked sensitive and
-  cleared after 60 s (`components/SpectraInputs.kt` `copySecretToClipboard`).
-- **Android services**: price alerts, large movements and a send's final
-  status are notifications on Transactions and Price Alerts channels
-  (`app/PlatformNotifications.kt`); QR codes are drawn with ZXing and scanned
-  with CameraX (`components/QRCodes.kt`); core's refresh policy reads the
-  validated or metered network, Data Saver, power saving and the battery, and
-  the app refreshes on returning to the foreground (`app/DeviceServices.kt`,
-  `app/SpectraApplication.kt`).
-- **The Gradle project is at the repository's root** (before: `kotlin/`):
-  `minSdk` 33, `targetSdk` 37, `compileSdk` 37.2, `versionName` 0.1 (before:
-  26, 34, 34, 1.0), with a version catalog in `gradle/libs.versions.toml` and
-  the Gradle 9.9.2 wrapper; a release build is minified and resource-shrunk
-  by R8, keeping JNA and the UniFFI bindings (`app/proguard-rules.pro`).
-- **Core is linked as `SpectraCoreAndroid/`**, the package spectra's
-  `make android` builds, its libraries and Kotlin bindings added to the app's
-  sources; a build without it, or a release build with a dev one, stops with
-  what to do.
+  `SecureWindow`, `FLAG_SECURE`).
+- **A copied secret is marked sensitive and cleared after 60 s**
+  (`components/SpectraInputs.kt` `copySecretToClipboard`).
+- **Android services**
+  - Price alerts, large movements and a send's final status are notifications
+    on Transactions and Price Alerts channels (`app/PlatformNotifications.kt`).
+  - QR codes are drawn with ZXing and scanned with CameraX
+    (`components/QRCodes.kt`).
+  - Core's refresh policy reads the validated or metered network, Data Saver,
+    power saving and the battery, and the app refreshes on returning to the
+    foreground (`app/DeviceServices.kt`, `app/SpectraApplication.kt`).
+- **The Gradle project is at the repository's root** (before: `kotlin/`)
+  - `minSdk` 33, `targetSdk` 37, `compileSdk` 37.2, `versionName` 0.1
+    (before: 26, 34, 34, 1.0).
+  - Versions are kept in a version catalog, `gradle/libs.versions.toml`, and
+    the build runs on the Gradle 9.9.2 wrapper.
+  - A release build is minified and resource-shrunk by R8, keeping JNA and the
+    UniFFI bindings (`app/proguard-rules.pro`).
+- **Core is linked as `SpectraCoreAndroid/`** (`app/build.gradle.kts`)
+  - The package spectra's `make android` builds; its libraries and Kotlin
+    bindings are added to the app's sources.
+  - A build without it, or a release build with a dev one, stops with what to
+    do.
 - **The string tables are spectra-apple's `RuntimeStrings`**
-  (`app/src/main/assets/strings/`), read by `models/AppLocalization.kt` with
-  Apple's format specifiers, plus 20 sentences in all three languages for
-  wording only Android has; the system's per-app language setting offers the
-  three (`res/xml/locales_config.xml`).
+  (`app/src/main/assets/strings/`)
+  - `models/AppLocalization.kt` reads them with Apple's format specifiers.
+  - 20 sentences, in all three languages, hold wording only Android has.
+  - The system's per-app language setting offers the three languages
+    (`res/xml/locales_config.xml`).
 - **Core's crypto icons are app assets** (`app/src/main/assets/crypto/`, 123
   SVGs), synced by `scripts/export-android-icons.sh` and drawn with
-  AndroidSVG; the launcher icon is the iOS icon's bars on black, with a
-  themed monochrome layer.
+  AndroidSVG.
+- **The launcher icon is the iOS icon's bars on black, with a themed
+  monochrome layer** (`res/drawable/`, `res/mipmap-anydpi/`).
 - **Make targets** `lint`, `test`, `test-device`, `build`, `release`,
-  `install` and `icons`; `scripts/missing-strings.py` finds a looked-up
-  sentence a table lacks.
+  `install` and `icons`.
+- **`scripts/missing-strings.py` finds a looked-up sentence a table lacks.**
 - Tests: 10 new
   - Secret store 5: a missing value read as present, a value stored in the
     clear or in another class's directory, a delete that leaves it, a device
@@ -129,17 +151,18 @@
 - Total: 161 .kt files changed (160 new, 1 deleted), +31314 −27 lines; data
   and config files: the Gradle build (`settings.gradle.kts`,
   `build.gradle.kts`, `app/build.gradle.kts`, `gradle.properties`,
-  `gradle/libs.versions.toml`, the wrapper's 4 files; `kotlin/`'s 3 .kts
-  deleted), `app/proguard-rules.pro`, `app/src/main/AndroidManifest.xml`,
-  `app/src/main/res/` (9 new, `values/strings.xml` moved from `kotlin/`),
-  `app/src/main/assets/` (`strings/` 4, `crypto/` 123, `BuyProviders.json`),
-  `Makefile`, `.gitignore`, `scripts/export-android-icons.sh`,
+  `gradle/libs.versions.toml`, the wrapper's 4 files; `kotlin/`'s 3 .kts and
+  its manifest deleted), `app/proguard-rules.pro`,
+  `app/src/main/AndroidManifest.xml`, `app/src/main/res/` (9 new,
+  `values/strings.xml` moved from `kotlin/`), `app/src/main/assets/`
+  (`strings/` 4, `crypto/` 123, `BuyProviders.json`), `Makefile`,
+  `.gitignore`, `scripts/export-android-icons.sh`,
   `scripts/missing-strings.py`; dependencies: Android Gradle plugin 8.2.0 →
   9.5.2, Kotlin 1.9.22 → 2.4.21 (the Compose compiler plugin; `kotlin-android`
-  removed), Compose `ui` 1.6.0 and `material3` 1.3.0 → Compose BOM
-  2026.11.01, `activity-compose` 1.8.2 → 1.13.0, JNA 5.14.0 → 5.19.1, added
-  `core-ktx`, `lifecycle-runtime-compose`, `lifecycle-process`, Navigation 3,
-  `biometric`, `fragment-ktx`, CameraX, `material-icons-extended`,
+  removed), Compose `ui` 1.6.0 and `material3` 1.3.0 → Compose BOM 2026.11.01,
+  `activity-compose` 1.8.2 → 1.13.0, JNA 5.14.0 → 5.19.1, added `core-ktx`,
+  `lifecycle-runtime-compose`, `lifecycle-process`, Navigation 3, `biometric`,
+  `fragment-ktx`, CameraX, `material-icons-extended`,
   `kotlinx-coroutines-android`, ZXing, AndroidSVG, and for tests JUnit 4.13.2,
   `kotlinx-coroutines-test`, AndroidX Test and Compose `ui-test-junit4`; tests
   passing in `make test` 0 → 3 and `make test-device` 0 → 7.
@@ -150,10 +173,9 @@
   Beta Commit 37 on**, written from the git history; `AGENTS.md` gains a
   "CHANGELOG" section on how it is written and tidied before a commit, and its
   Git rule points there.
-- **`scripts/build-android.sh` and `scripts/bindgen-android.sh` are deleted**:
-  both built the `ffi/` crate, which spectra no longer has, so neither ran.
-  Android builds core from a spectra checkout when its work starts
-  (`README.md`).
+- **`scripts/build-android.sh` and `scripts/bindgen-android.sh` are deleted**
+  (both built the `ffi/` crate, which spectra no longer has, so neither
+  ran).
 - Docs: `CHANGELOG.md` (new); `AGENTS.md` "Git", "CHANGELOG" (new).
 - Total: no .kt files changed; data and config files:
   `scripts/build-android.sh`, `scripts/bindgen-android.sh` (deleted);
@@ -169,7 +191,7 @@
   (`AGENTS.md`): its Rule 0 and Funds and keys cover everything here (before:
   add `@../Spectra/AGENTS.md` to `CLAUDE.md`).
 - Docs: `README.md`; `AGENTS.md` "Status".
-- Total: no code changed.
+- Total: No code changed.
 
 ## Beta Commit 250
 
@@ -180,7 +202,7 @@
 - **`AGENTS.md` says to load `@../Spectra/AGENTS.md` once the app builds against
   core** (before: `@spectra/AGENTS.md` once `spectra/` is a submodule).
 - Docs: `README.md`; `AGENTS.md` "Status".
-- Total: no code changed.
+- Total: No code changed.
 
 ## Restore the Android starting point
 
@@ -193,9 +215,12 @@
   has; work starts by taking spectra as the `spectra/` git submodule, building
   `spectra/core` as a `cdylib` for each Android ABI, and generating bindings
   with `spectra/tools/uniffi-bindgen --language kotlin`.
-- **`AGENTS.md`, `CLAUDE.md`, `LICENSE` and `.gitignore` added**: no commit or
-  push unless asked; GPL-3.0; Gradle and Android Studio output, the generated
-  bindings and the native libraries are ignored.
+- **`AGENTS.md`, `CLAUDE.md`, `LICENSE` and `.gitignore` added**
+  - `AGENTS.md`, which `CLAUDE.md` loads: no commit or push unless asked, and
+    spectra's rules to be loaded once `spectra/` is a submodule.
+  - `LICENSE`: GPL-3.0.
+  - `.gitignore`: Gradle and Android Studio output, the generated bindings and
+    the native libraries.
 - Docs: `README.md`, `AGENTS.md` and `CLAUDE.md` (new).
 - Total: 1 .kt file changed (1 new), +27 −0 lines; data and config files:
   `kotlin/build.gradle.kts`, `kotlin/settings.gradle.kts`,
@@ -208,7 +233,7 @@
 
 - **Android app removed**: `kotlin/` (the `MainActivity` stub and its Gradle
   setup) and both scripts are deleted, leaving no files.
-- Total: 1 .kt file changed, +0 −156 lines; data and config files:
+- Total: 1 .kt file changed (1 deleted), +0 −27 lines; data and config files:
   `kotlin/build.gradle.kts`, `kotlin/settings.gradle.kts`,
   `kotlin/app/build.gradle.kts`, `kotlin/app/src/main/AndroidManifest.xml`,
   `kotlin/app/src/main/res/values/strings.xml`, `scripts/build-android.sh`,
@@ -220,8 +245,8 @@
 - **Placeholder `Bindings` and `WalletStore` removed**
   (`kotlin/app/src/main/kotlin/dev/spectra/core/`): the app is the
   `MainActivity` stub alone.
-- Total: 2 .kt files changed, +0 −18 lines; data and config files: none;
-  dependencies unchanged; test functions unchanged at 0.
+- Total: 2 .kt files changed (2 deleted), +0 −18 lines; data and config files:
+  none; dependencies unchanged; test functions unchanged at 0.
 
 ## Beta Commit 214
 
@@ -236,42 +261,43 @@
   (`scripts/bindgen-android.sh`): the build profile does not reach the generated
   bindings, so it only makes generation faster (before: it referred to
   `bindgen-ios.sh`).
-- Total: no .kt files changed, +2 −2 lines; data and config files:
-  `scripts/bindgen-android.sh`; dependencies unchanged; test functions unchanged
-  at 0.
+- Total: no .kt files changed; data and config files:
+  `scripts/bindgen-android.sh`; dependencies unchanged; test functions
+  unchanged at 0.
 
 ## Beta Commit 145
 
 - **`bindgen-android.sh` runs the binding generator as a release build** (`cargo
   run --release`) against the debug library; the generated bindings are the
   same.
-- Total: no .kt files changed, +3 −1 lines; data and config files:
-  `scripts/bindgen-android.sh`; dependencies unchanged; test functions unchanged
-  at 0.
+- Total: no .kt files changed; data and config files:
+  `scripts/bindgen-android.sh`; dependencies unchanged; test functions
+  unchanged at 0.
 
 ## Beta Commit 43
 
 - **`Kotlin/` renamed to `kotlin/`**; the output paths in both scripts follow.
-- Total: 3 .kt files changed, +3 −3 lines; data and config files: `kotlin/` (5
-  moved), `scripts/build-android.sh`, `scripts/bindgen-android.sh`; dependencies
-  unchanged; test functions unchanged at 0.
+- Total: 3 .kt files moved, no line changed; data and config files: `kotlin/`
+  (5 moved), `scripts/build-android.sh`, `scripts/bindgen-android.sh`;
+  dependencies unchanged; test functions unchanged at 0.
 
 ## Beta Commit 37
 
-- **Android app skeleton** (`Kotlin/`): a Compose `MainActivity` that shows
-  "Spectra"; `dev.spectra.core.Bindings`, which loads `libspectra_core`, and an
-  empty `WalletStore`, both placeholders for the UniFFI bindings. `compileSdk`
-  and `targetSdk` 34, `minSdk` 26.
+- **Android app skeleton** (`Kotlin/`)
+  - A Compose `MainActivity` that shows "Spectra".
+  - `dev.spectra.core.Bindings`, which loads `libspectra_core`, and an empty
+    `WalletStore`, both placeholders for the UniFFI bindings.
+  - `compileSdk` and `targetSdk` 34, `minSdk` 26.
 - **Scripts that build core for Android** (`scripts/`)
   - `build-android.sh` compiles the `ffi/` crate with `cargo-ndk` for arm64-v8a,
     armeabi-v7a and x86_64 and copies `libspectra_core.so` into `jniLibs/`;
     `--release` builds the release profile.
   - `bindgen-android.sh` builds the `ffi/` crate for the host and generates
     Kotlin UniFFI bindings into `Kotlin/app/src/main/kotlin/uniffi/`.
-- Total: 3 .kt files changed (3 new), +172 −0 lines; data and config files:
+- Total: 3 .kt files changed (3 new), +45 −0 lines; data and config files:
   `Kotlin/build.gradle.kts`, `Kotlin/settings.gradle.kts`,
   `Kotlin/app/build.gradle.kts`, `Kotlin/app/src/main/AndroidManifest.xml`,
   `Kotlin/app/src/main/res/values/strings.xml`, `scripts/build-android.sh`,
-  `scripts/bindgen-android.sh`; dependencies: added Android Gradle plugin 8.2.0,
-  Kotlin Android 1.9.22, `activity-compose` 1.8.2, Compose `ui` 1.6.0,
+  `scripts/bindgen-android.sh`; dependencies: added Android Gradle plugin
+  8.2.0, Kotlin Android 1.9.22, `activity-compose` 1.8.2, Compose `ui` 1.6.0,
   `material3` 1.3.0, JNA 5.14.0; test functions unchanged at 0.

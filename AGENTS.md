@@ -54,13 +54,48 @@ spectra keeps its own for core.
 **Tidy it before a commit.** When I am about to commit, or ask for the
 CHANGELOG to be tidied, check `## Uncommitted` against the actual change
 (`git diff`). Every sub-item matches one change in the diff: delete one that
-does not. Add what the diff has and the entries lack. Numbers match the code,
-and no claim goes beyond what was done. Then rename the heading to the
-commit's title, such as `## Beta Commit 252`.
+does not, which is usually an unchanged part, the whole picture after the
+change, or process. Add what the diff has and the entries lack. Numbers match
+the code, and no claim goes beyond what was done. Then rename the heading to
+the commit's title, such as `## Beta Commit 252`.
 
-How to write it: as spectra's `AGENTS.md` "CHANGELOG" says, with one
-difference: `Total:` counts .kt files, and tests passing in `make test` and
-`make test-device` before → after.
+How to write it:
+
+- **Voice.** An objective record. Do not address the reader, and write no
+  asides. A decision for me goes in the conversation or in `OPEN-ITEMS.md`.
+- **The result, not the process.** Write what the changed part is now, with
+  the before or the reason in one parenthesised sentence when it helps. No
+  process ("first … then", "found … so", "tried …", debugging), and no whole
+  picture after the change: the docs hold that, so point there in a few words.
+- **One sub-item per change.** Each change is a bullet whose bold headline
+  states the result, with where in parentheses (screens, files, classes).
+  Under it, one sub-item per change, in one or two sentences. A change is one
+  thing `git diff` shows: a behaviour, a screen or control, a number or
+  default, a file that moved, whether stored data still loads. Many changes,
+  many sub-items; a change with only one such thing is the headline alone,
+  with no sub-items.
+- **No padding.** Leave out unchanged parts, unless a reader would think they
+  changed; per-item visual detail, which `ANDROID-UI.md` and the code hold;
+  lists of functions and call sites; mechanical edits such as an added
+  property, a rename or a rebuilt `SpectraCoreAndroid/`; anything that repeats
+  the headline. A refactor that keeps behaviour is one line naming what moved
+  where; how that was shown goes under `Measured:`.
+- **Names as they were.** A section names files and symbols as they were at
+  that commit, even after they move or go.
+- **Measurements.** The conclusion only, with its source (a test, a run on a
+  named device or emulator).
+- **Each section ends with these, in order, when they apply:**
+  - `Measured:` one line per run: date, device or emulator, result, key
+    numbers only, before → after.
+  - `Tests: N new`: one line per area, "area N: what it guards against". Not
+    what each test checks. An existing test that was only updated is left out
+    unless what it guards changed.
+  - `Docs:` which doc, and which sections.
+  - `Total:` always, last: N .kt files changed (M new), +X −Y lines; data,
+    asset and config files by name or grouped by folder, or none;
+    dependencies unchanged, or what was added or removed; tests passing in
+    `make test` and `make test-device` before → after, or which was not run.
+    "No code changed" when the change is docs alone.
 
 ## Verification
 
