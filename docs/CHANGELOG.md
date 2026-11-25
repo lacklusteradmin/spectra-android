@@ -1,5 +1,13 @@
 # Changelog
 
+## Beta Commit 259
+
+- **Thirty-seven icons** (`app/src/main/assets/crypto/`), synced from core's
+  library: 37 of the 44 tokens core's catalog adds (the other seven name no
+  artwork).
+- Total: no .kt files changed; data files: `app/src/main/assets/crypto/` (37
+  new); tests not run.
+
 ## Beta Commit 258
 
 - **Source directories leave out the root package** (`app/src/main/kotlin/`,
