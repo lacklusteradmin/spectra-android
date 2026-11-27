@@ -1,5 +1,21 @@
 # Changelog
 
+## Beta Commit 262
+
+- **Core's endpoint messages are translated as core now words them**
+  (`app/src/main/assets/strings/RuntimeStrings.*.json`, spectra-apple's
+  tables)
+  - "Endpoint is not one of this network's" (before: "Endpoint is not this
+    network's indexer").
+  - "no check for this API and its declared capabilities" (before: "no health
+    check for the declared capabilities").
+  - "no explorer serves this chain's transaction history" is deleted; core no
+    longer gives it.
+- Total: no .kt files changed; asset files:
+  `app/src/main/assets/strings/RuntimeStrings.en.json`, `.zh-Hans.json`,
+  `.zh-Hant.json`; dependencies unchanged; tests passing in `make test`
+  3 → 3 and `make test-device` 7 → 7.
+
 ## Beta Commit 261
 
 - Docs: `AGENTS.md` "CHANGELOG" (the rules written out here instead of
