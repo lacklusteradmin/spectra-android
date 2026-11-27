@@ -2,14 +2,19 @@
 """Find the sentences the app looks up that a string table lacks.
 
 Every literal key passed to `AppLocalization.string`, `format` or
-`formatCount` in the app's Kotlin must be in each of the three tables in
+`formatCount` in the app's Kotlin must be in each of the three languages in
 `app/src/main/assets/strings/`, either as a translation or, in English, as
-itself when the sentence differs from its key. A key in no table reads as
-itself, which is English on a Chinese screen. Keys built at run time cannot
-be read here: core's sentences and wording passed through a variable.
+itself when the sentence differs from its key. A language is its shared
+`RuntimeStrings` table and the app's own `AndroidStrings` table read as one.
+A key in no table reads as itself, which is English on a Chinese screen. Keys
+built at run time cannot be read here: core's sentences and wording passed
+through a variable.
 
-Prints each missing key with the tables that lack it, and exits non-zero
-when it found any.
+The app's own tables are checked too: a key there that the shared table also
+has shadows it, and a key one language has and another lacks falls back to
+English.
+
+Prints each finding, and exits non-zero when it found any.
 """
 import json
 import pathlib
@@ -57,7 +62,19 @@ def kotlin_literal(text: str) -> str:
 
 
 def main() -> int:
-    tables = {loc: json.loads((TABLES / f"RuntimeStrings.{loc}.json").read_text()) for loc in LOCALES}
+    shared = {loc: json.loads((TABLES / f"RuntimeStrings.{loc}.json").read_text()) for loc in LOCALES}
+    own = {loc: json.loads((TABLES / f"AndroidStrings.{loc}.json").read_text()) for loc in LOCALES}
+    tables = {loc: {**shared[loc], **own[loc]} for loc in LOCALES}
+    conflicts = 0
+    for loc in LOCALES:
+        for key in sorted(own[loc].keys() & shared[loc].keys()):
+            conflicts += 1
+            print(f"AndroidStrings.{loc}.json: {key!r} is also in RuntimeStrings.{loc}.json")
+    own_keys = set().union(*(own[loc].keys() for loc in LOCALES))
+    for loc in LOCALES:
+        for key in sorted(own_keys - own[loc].keys()):
+            conflicts += 1
+            print(f"AndroidStrings.{loc}.json: {key!r} is missing, though another language has it")
     used: dict[str, str] = {}
     for path in sorted(SOURCES.rglob("*.kt")):
         text = path.read_text()
@@ -75,8 +92,8 @@ def main() -> int:
         if lacking:
             missing += 1
             print(f"{where}: {key!r} missing from {', '.join(lacking)}")
-    print(f"{missing} missing of {len(used)} keys")
-    return 1 if missing else 0
+    print(f"{missing} missing of {len(used)} keys, {conflicts} inconsistent in AndroidStrings")
+    return 1 if missing or conflicts else 0
 
 
 if __name__ == "__main__":

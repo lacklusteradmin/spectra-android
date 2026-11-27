@@ -1,5 +1,31 @@
 # Changelog
 
+## Beta Commit 263
+
+- **The shared string tables are spectra's, and this app's own sentences
+  have tables of their own** (`app/src/main/assets/strings/`,
+  `AppLocalization`, `scripts/export-android-strings.sh`, `make strings`)
+  - `RuntimeStrings.<locale>.json` are synced from spectra's `strings/` by
+    `make strings SPECTRA=<spectra>` (before: copies of spectra-apple's
+    tables, with this app's sentences added by hand).
+  - The 15 sentences only this app shows are in `AndroidStrings.<locale>.json`,
+    which `AppLocalization` reads together with the shared table of the same
+    language (before: in the copied `RuntimeStrings` tables).
+  - `scripts/missing-strings.py` reads both tables, and also fails on an
+    `AndroidStrings` key the shared table has and on one a language lacks.
+- Measured: 2026-11-27, Spectra_Pixel_9, app language zh-Hans: the home page
+  (shared table), "Screen Lock" in Settings and the Tor page footer
+  (`AndroidStrings`) read in Chinese.
+- Docs: `AGENTS.md` (Repositories, Docs table, Strings), `ANDROID-UI.md`
+  (Words), `OPEN-ITEMS.md` ("The string tables are copies" removed),
+  `scripts/README.md`.
+- Total: 1 .kt file changed, +14 −10 lines; asset files:
+  `app/src/main/assets/strings/RuntimeStrings.*.json`,
+  `AndroidStrings.en.json`, `.zh-Hans.json`, `.zh-Hant.json` (new); config
+  and scripts: `Makefile`, `scripts/missing-strings.py`,
+  `scripts/export-android-strings.sh` (new); dependencies unchanged; tests
+  passing in `make test` 3 → 3; `make test-device` not run.
+
 ## Beta Commit 262
 
 - **Core's endpoint messages are translated as core now words them**

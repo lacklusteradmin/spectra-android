@@ -2,13 +2,14 @@ SHELL := /bin/bash
 
 # The app links SpectraCoreAndroid/, the package spectra's `make android`
 # builds, copied here by hand. Nothing here builds core or assumes where its
-# checkout is: what reads core's icon library takes SPECTRA, a spectra
-# checkout, absolute or relative to this repository's root.
+# checkout is: what reads core's icon library or the shared string tables
+# takes SPECTRA, a spectra checkout, absolute or relative to this repository's
+# root.
 export SPECTRA
 
 GRADLE := ./gradlew --console=plain
 
-.PHONY: lint test test-device build release install icons
+.PHONY: lint test test-device build release install icons strings
 
 # ── Verification ────────────────────────────────────────────────────
 # Three targets, each run by name: lint, test and test-device. AGENTS.md
@@ -41,3 +42,7 @@ install:
 icons:
 	@test -n "$(SPECTRA)" || { echo "error: the icons are core's: make icons SPECTRA=<spectra checkout>" >&2; exit 2; }
 	scripts/export-android-icons.sh
+
+strings:
+	@test -n "$(SPECTRA)" || { echo "error: the string tables are spectra's: make strings SPECTRA=<spectra checkout>" >&2; exit 2; }
+	scripts/export-android-strings.sh

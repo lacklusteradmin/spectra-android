@@ -12,11 +12,6 @@ Remaining app work. Core's is spectra's `docs/OPEN-ITEMS.md`.
   Activity; here only the notification core asks for when it confirms or
   fails. An ongoing notification for a pending send is the Android
   counterpart, if wanted.
-- **The string tables are copies.** `app/src/main/assets/strings/` holds
-  spectra-apple's `RuntimeStrings` tables plus Android-only sentences. A
-  change to the iOS tables reaches Android only by copying them again;
-  giving both apps one set of tables (in spectra, as the icon library is) is a
-  decision to make.
 
 ## Tests and checks
 

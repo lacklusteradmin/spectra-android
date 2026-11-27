@@ -96,8 +96,9 @@ document is the authority for how Android draws it.
 - **Text colours:** `onSurface` for primary text and `secondaryText`
   (`onSurfaceVariant`) for secondary.
 - **Words:** every string a person reads comes from `AppLocalization`, keyed by
-  the same English sentence or dotted name the iOS app uses, so both apps
-  share one set of tables.
+  the same English sentence or dotted name the iOS app uses: both apps read
+  spectra's shared tables, and this app's own sentences sit beside them
+  (`AGENTS.md`, Strings).
 - **Logo:** `SpectraMark` and `SpectraLogo` draw the app icon's five bars; the
   launcher icon is the same bars on black.
 

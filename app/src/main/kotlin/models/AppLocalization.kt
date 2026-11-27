@@ -6,16 +6,17 @@ import org.json.JSONObject
 import java.util.Locale
 
 /**
- * Every string a person reads, from `assets/strings/RuntimeStrings.<locale>.json`:
- * the reader's preferred languages that ship, then the source language. A key
- * in no table reads as itself, so a table holds only what differs from its
- * key — a translation, or the words for a dotted name such as
- * `settings.aboutTitle`.
+ * Every string a person reads, from `assets/strings/`: the reader's preferred
+ * languages that ship, then the source language. A key in no table reads as
+ * itself, so a table holds only what differs from its key — a translation, or
+ * the words for a dotted name such as `settings.aboutTitle`.
  *
- * The tables are spectra-apple's, keyed by the same English sentences, with
- * Apple's format specifiers (`%@`, `%1$@`, `%lld`); [format] reads them as
- * Java's. A sentence with values is [format], never `String.format` on a
- * looked-up string, so its numbers follow the display locale.
+ * A language reads two tables as one: `RuntimeStrings.<locale>.json`, which
+ * both apps share, and `AndroidStrings.<locale>.json`, the sentences only this
+ * app shows. They are keyed by English sentences with Apple's format
+ * specifiers (`%@`, `%1$@`, `%lld`); [format] reads them as Java's. A sentence
+ * with values is [format], never `String.format` on a looked-up string, so its
+ * numbers follow the display locale.
  */
 object AppLocalization {
     private class Tables(val locale: Locale, val strings: List<Map<String, String>>, val locales: LocaleList)
@@ -88,7 +89,10 @@ object AppLocalization {
         if (source !in identifiers) identifiers += source
         val tables = Tables(
             locale = displayLocale(identifiers.first(), current[0] ?: Locale.getDefault()),
-            strings = identifiers.mapNotNull { readTable("strings/RuntimeStrings.$it.json") },
+            strings = identifiers.mapNotNull { language ->
+                readTable("strings/RuntimeStrings.$language.json")
+                    ?.plus(readTable("strings/AndroidStrings.$language.json").orEmpty())
+            },
             locales = current,
         )
         cached = tables

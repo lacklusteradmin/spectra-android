@@ -1,0 +1,17 @@
+{
+  "Biometrics": "生物辨識",
+  "Screen Lock": "螢幕鎖定",
+  "Point the camera at a QR code.": "將相機對準二維碼。",
+  "Set a screen lock in the system settings.": "請在系統設定中設定螢幕鎖定。",
+  "No wiki page": "沒有百科頁面",
+  "The Crypto Wiki has no page for this.": "加密百科中沒有這一項的頁面。",
+  "This transaction is no longer stored on this device.": "這筆交易已不再儲存在此裝置上。",
+  "Decrease": "減少",
+  "Increase": "增加",
+  "This wallet is no longer on this device.": "此錢包已不在這台裝置上。",
+  "Search": "搜尋",
+  "Check the spelling or try a new search.": "請檢查拼字或嘗試新的搜尋。",
+  "No Results for “%@”": "沒有「%@」的結果",
+  "tor.footer.android": "Spectra 發出的每個請求都經由 Tor，被查詢的 RPC 提供方和區塊瀏覽器都看不到你的 IP 位址。Tor 連線中或中斷時，不會傳送任何請求。區塊瀏覽器連結會在你的瀏覽器中開啟，不經過 Tor。",
+  "Choose which categories to remove from this device. Selected items are deleted locally and some options also clear data in secure storage.": "選擇要從此裝置中移除的類別。所選項目會在本地刪除，某些選項還會清除安全儲存空間中的資料。"
+}

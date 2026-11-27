@@ -15,7 +15,8 @@ there apply to everything here.
   builds into its `target/SpectraCoreAndroid/`. Copy that directory here, and
   Gradle compiles no Rust.
 - Nothing here assumes where a spectra checkout is. What reads core's source
-  takes it as `SPECTRA`: the icon export, `make icons SPECTRA=<path>`.
+  takes it as `SPECTRA`: the icon export, `make icons SPECTRA=<path>`, and the
+  string sync, `make strings SPECTRA=<path>`.
 - Nothing here records which core commit the package came from. Land a core
   change in spectra before the app change that needs it.
 - The app is spectra-apple's, page for page, with the same words. A change to
@@ -33,7 +34,7 @@ Read the one that covers what you are changing:
 | [KOTLIN-BINDINGS.md](docs/KOTLIN-BINDINGS.md) | The core package the app links, and its Kotlin bindings |
 | [OPEN-ITEMS.md](docs/OPEN-ITEMS.md) | Remaining app work |
 | [CHANGELOG.md](docs/CHANGELOG.md) | What each commit changed, and why |
-| [scripts/README.md](scripts/README.md) | The icon export |
+| [scripts/README.md](scripts/README.md) | The icon export, the string sync and the string scan |
 | spectra's `docs/` | Core's architecture, chain support, FFI boundary and open items |
 | spectra-apple's `docs/IOS-UI.md` | What each page holds, which this app draws in Material 3 |
 
@@ -167,12 +168,19 @@ pre-existing without evidence.
 ## Strings
 
 Every word on screen comes from `AppLocalization`, keyed by the same English
-sentence or dotted name spectra-apple uses. The tables in
-`app/src/main/assets/strings/` are spectra-apple's `RuntimeStrings` tables,
-with its format specifiers (`%@`, `%1$@`, `%lld`), which `AppLocalization`
-reads as Java's. A sentence the iOS app also shows takes its key and words
-from there; an Android-only sentence is added to all three tables, `en`,
-`zh-Hans` and `zh-Hant`.
+sentence or dotted name spectra-apple uses, with Apple's format specifiers
+(`%@`, `%1$@`, `%lld`), which `AppLocalization` reads as Java's. Each language
+in `app/src/main/assets/strings/` is two tables read as one:
+
+- `RuntimeStrings.<locale>.json`, the tables both apps share, kept in
+  spectra's `strings/` with their rules in spectra's `AGENTS.md`. Never edit
+  the copy here: a sentence spectra-apple also shows is added or changed
+  there, then synced with `make strings SPECTRA=<spectra checkout>`.
+- `AndroidStrings.<locale>.json`, the sentences only this app shows, edited
+  here. A key in it must not be in the shared tables.
+
+A sentence goes in all three languages, `en`, `zh-Hans` and `zh-Hant`;
+`scripts/missing-strings.py` finds one a language lacks.
 
 ## Icons
 
