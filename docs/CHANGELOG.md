@@ -1,5 +1,21 @@
 # Changelog
 
+## Beta Commit 264
+
+- **47 crypto icons show their projects' current marks**
+  (`app/src/main/assets/crypto/`, from spectra's library; spectra's
+  `docs/audits/icons-2026-11-27/`)
+- **AERO draws Aero's token mark** (`app/src/main/assets/crypto/`: `aero.svg`
+  replaces `aerodrome.svg`; spectra's catalog lists the Aero token in place
+  of the legacy Aerodrome AERO)
+- **Blast's and USDB's icons are removed** (`app/src/main/assets/crypto/`:
+  `blast.svg`, `usdb.svg`; spectra no longer catalogues Blast, which shut its
+  L2 down on 2026-11-04)
+- Total: no .kt files changed; asset files: `app/src/main/assets/crypto/`
+  (47 changed, 1 new, 3 removed); dependencies unchanged; `make lint` and
+  `make build` passing; tests passing in `make test` 3 → 3 and `make
+  test-device` 7 → 7.
+
 ## Beta Commit 263
 
 - **The shared string tables are spectra's, and this app's own sentences
